@@ -1,0 +1,8 @@
+Amostra testada:
+	voice-bandeira-14.wav
+Chute do programa:
+	bandeira
+Distancia individual:
+	-16.800198454664308
+Distancias para cada modelo:
+	[-22.89220893 -16.80019845 -18.10400434 -18.88144764]

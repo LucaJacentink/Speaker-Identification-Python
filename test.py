@@ -6,6 +6,7 @@ from featureextraction import extract_features
 import os
 import warnings
 import time
+from report import write_report
 
 # path to training data
 source = "SampleData/"
@@ -47,6 +48,7 @@ if take == 1:
     if detected_speaker == true_speaker:
         correct += 1
 
+    print("Score da amostra predita:", log_likelihood[winner])  # Adicionando a saída do score
     time.sleep(1.0)
 
 elif take == 0:
@@ -72,15 +74,24 @@ elif take == 0:
         detected_speaker = speakers[winner]
         print("\tdetected as - ", detected_speaker)
 
-        true_speaker = path.split('-')[1]  # Extrair o locutor real do nome do arquivo
+        true_speaker = path.split('-')[1]
         if detected_speaker == true_speaker:
             correct += 1
 
+        print("Score da amostra predita:", log_likelihood[winner])  # Adicionando a saída do score
         time.sleep(1.0)
+        
+       
+        relatorio_info = {
+            "Amostra testada": path,
+            "Chute do programa": detected_speaker,
+            "Distancia individual": log_likelihood[winner],
+            "Distancias para cada modelo": log_likelihood
+        }
 
-print(f"Number of correct detections: {correct} out of {total_sample}")
+
+        relatorio_nome = f"relatorio_{path.split('.')[0]}.txt"
+        write_report(relatorio_nome, report_info=relatorio_info)
 accuracy = (correct / total_sample) * 100 if total_sample > 0 else 0
 
 print("The Accuracy Percentage for the current testing Performance with MFCC + GMM is : ", accuracy, "%")
-
-print("Hurray! Speaker identified. Mission Accomplished Successfully.")

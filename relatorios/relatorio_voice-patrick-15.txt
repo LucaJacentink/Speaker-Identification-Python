@@ -1,0 +1,8 @@
+Amostra testada:
+	voice-patrick-15.wav
+Chute do programa:
+	patrick
+Distancia individual:
+	-21.20331878366286
+Distancias para cada modelo:
+	[-25.91345461 -23.20095189 -23.38584908 -21.20331878]

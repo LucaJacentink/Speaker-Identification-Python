@@ -1,0 +1,8 @@
+Amostra testada:
+	voice-luca-13.wav
+Chute do programa:
+	luca
+Distancia individual:
+	-21.300619933005702
+Distancias para cada modelo:
+	[-25.17012318 -22.55681753 -21.30061993 -21.59357477]

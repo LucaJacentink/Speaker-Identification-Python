@@ -7,17 +7,8 @@ from featureextraction import extract_features
 import warnings
 warnings.filterwarnings("ignore")
 
-# path to training data
-# source   = "development_set/"
-# source = "Treinamento/"   
-
-# path where training speakers will be saved
-
-# dest = "speaker_models/"
-# train_file = "development_set_enroll.txt"
-
 dest = "Speakers_models/"
-train_file = "trainingDataPath.txt"    
+train_file = "trainingDataPath.txt"
 file_paths = open(train_file, 'r')
 
 count = 1
@@ -37,7 +28,7 @@ for path in file_paths:
         features = vector
     else:
         features = np.vstack((features, vector))      
-    if count == 11:
+    if count == 12:
         gmm = Gmm(n_components=16, max_iter=200, covariance_type='diag', n_init=3)
         gmm.fit(features)
         picklefile = path.split("-")[0]+".gmm"

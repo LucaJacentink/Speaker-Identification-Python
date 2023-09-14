@@ -1,0 +1,8 @@
+Amostra testada:
+	voice-antonio-15.wav
+Chute do programa:
+	antonio
+Distancia individual:
+	-15.113124245181929
+Distancias para cada modelo:
+	[-15.11312425 -22.54099794 -22.1780135  -19.481909  ]

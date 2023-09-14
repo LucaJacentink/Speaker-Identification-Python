@@ -1,92 +1,86 @@
-import os
-import cPickle
+import pickle as cPickle
 import numpy as np
 from scipy.io.wavfile import read
+from sklearn.mixture import GaussianMixture as Gmm
 from featureextraction import extract_features
-#from speakerfeatures import extract_features
+import os
 import warnings
-warnings.filterwarnings("ignore")
 import time
 
-"""
-#path to training data
-source   = "development_set/"   
-modelpath = "speaker_models/"
-test_file = "development_set_test.txt"        
-file_paths = open(test_file,'r')
+# path to training data
+source = "SampleData/"
 
-"""
-#path to training data
-source   = "SampleData/"   
-
-#path where training speakers will be saved
+# path where training speakers will be saved
 modelpath = "Speakers_models/"
 
-gmm_files = [os.path.join(modelpath,fname) for fname in 
-              os.listdir(modelpath) if fname.endswith('.gmm')]
+gmm_files = [os.path.join(modelpath, fname) for fname in os.listdir(modelpath) if fname.endswith('.gmm')]
 
-#Load the Gaussian gender Models
-models    = [cPickle.load(open(fname,'r')) for fname in gmm_files]
-speakers   = [fname.split("/")[-1].split(".gmm")[0] for fname 
-              in gmm_files]
+# Load the Gaussian gender Models
+models = [cPickle.load(open(fname, 'rb')) for fname in gmm_files]
+speakers = [fname.split("/")[-1].split(".gmm")[0] for fname in gmm_files]
 
-error = 0
+correct = 0
 total_sample = 0.0
 
+print("Do you want to Test a Single Audio: Press '1' or The complete Test Audio Sample: Press '0' ?")
+take = int(input().strip())
 
-print "Do you want to Test a Single Audio: Press '1' or The complete Test Audio Sample: Press '0' ?"
-take = int(raw_input().strip())
 if take == 1:
-	print "Enter the File name from Test Audio Sample Collection :"
-	path = raw_input().strip()   
-    	print "Testing Audio : ", path
-    	sr,audio = read(source + path)
-    	vector   = extract_features(audio,sr)
-    
-    	log_likelihood = np.zeros(len(models)) 
-    
-    	for i in range(len(models)):
-        	gmm    = models[i]  #checking with each model one by one
-        	scores = np.array(gmm.score(vector))
-        	log_likelihood[i] = scores.sum()
-    
-    	winner = np.argmax(log_likelihood)
-    	print "\tdetected as - ", speakers[winner]
+    print("Enter the File name from Test Audio Sample Collection :")
+    path = input().strip()
+    print("Testing Audio : ", path)
+    sr, audio = read(os.path.join(source, path))
+    vector = extract_features(audio, sr)
 
-    	time.sleep(1.0)
+    log_likelihood = np.zeros(len(models))
+
+    for i in range(len(models)):
+        gmm = models[i]  # checking with each model one by one
+        scores = np.array(gmm.score(vector))
+        log_likelihood[i] = scores.sum()
+
+    winner = np.argmax(log_likelihood)
+    detected_speaker = speakers[winner]
+    print("\tdetected as - ", detected_speaker)
+
+    true_speaker = path.split('-')[1]  # Extrair o locutor real do nome do arquivo
+    if detected_speaker == true_speaker:
+        correct += 1
+
+    time.sleep(1.0)
+
 elif take == 0:
-	test_file = "testSamplePath.txt"        
-	file_paths = open(test_file,'r')
+    test_file = "testSamplePath.txt"
+    file_paths = open(test_file, 'r')
 
+    # Read the test directory and get the list of test audio files
+    for path in file_paths:
+        total_sample += 1.0
+        path = path.strip()
+        print("Testing Audio : ", path)
+        sr, audio = read(os.path.join(source, path))
+        vector = extract_features(audio, sr)
 
-	# Read the test directory and get the list of test audio files 
-	for path in file_paths:   
-    
-    		total_sample += 1.0
-    		path = path.strip()   
-    		print "Testing Audio : ", path
-    		sr,audio = read(source + path)
-    		vector   = extract_features(audio,sr)
-    
-    		log_likelihood = np.zeros(len(models)) 
-    
-    		for i in range(len(models)):
-        		gmm    = models[i]  #checking with each model one by one
-        		scores = np.array(gmm.score(vector))
-        		log_likelihood[i] = scores.sum()
-    
-    		winner = np.argmax(log_likelihood)
-    		print "\tdetected as - ", speakers[winner]
+        log_likelihood = np.zeros(len(models))
 
-    		checker_name = path.split("_")[0]
-    		if speakers[winner] != checker_name:
-			error += 1
-    		time.sleep(1.0)
+        for i in range(len(models)):
+            gmm = models[i]  # checking with each model one by one
+            scores = np.array(gmm.score(vector))
+            log_likelihood[i] = scores.sum()
 
-	print error, total_sample
-	accuracy = ((total_sample - error) / total_sample) * 100
+        winner = np.argmax(log_likelihood)
+        detected_speaker = speakers[winner]
+        print("\tdetected as - ", detected_speaker)
 
-	print "The Accuracy Percentage for the current testing Performance with MFCC + GMM is : ", accuracy, "%"
+        true_speaker = path.split('-')[1]  # Extrair o locutor real do nome do arquivo
+        if detected_speaker == true_speaker:
+            correct += 1
 
+        time.sleep(1.0)
 
-print "Hurrey ! Speaker identified. Mission Accomplished Successfully. "
+print(f"Number of correct detections: {correct} out of {total_sample}")
+accuracy = (correct / total_sample) * 100 if total_sample > 0 else 0
+
+print("The Accuracy Percentage for the current testing Performance with MFCC + GMM is : ", accuracy, "%")
+
+print("Hurray! Speaker identified. Mission Accomplished Successfully.")

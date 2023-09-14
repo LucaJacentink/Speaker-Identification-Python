@@ -8,7 +8,7 @@ import warnings
 import time
 from report import write_report
 
-# path to training data
+
 source = "SampleData/"
 
 # path where training speakers will be saved

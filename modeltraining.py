@@ -3,8 +3,10 @@ import numpy as np
 from scipy.io.wavfile import read
 from sklearn.mixture import GaussianMixture as Gmm
 from featureextraction import extract_features
-# from speakerfeatures import extract_features
 import warnings
+
+
+
 warnings.filterwarnings("ignore")
 
 dest = "Speakers_models/"

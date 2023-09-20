@@ -5,4 +5,4 @@ Chute do programa:
 Distancia individual:
 	-18.93022556098041
 Distancias para cada modelo:
-	[-18.93022556 -24.20706304 -24.31660755 -21.63528133]
+	[('antonio', -18.93022556098041), ('bandeira', -24.207063035536112), ('luca', -24.316607549749985), ('patrick', -21.635281334410582)]

@@ -1,6 +1,4 @@
-import speaker_verification_toolkit.tools as svt
-import librosa
-import numpy
+
 from captura_de_voz import captura_voz
 
 

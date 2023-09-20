@@ -1,6 +1,5 @@
 import sounddevice as sd 
 import wavio as wv 
-import numpy
 import time
 from scipy.io.wavfile import write
 def captura_voz(falante, gravacoes):

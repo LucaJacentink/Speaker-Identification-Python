@@ -1,8 +1,10 @@
-Amostra testada:
-	voice-bandeira-12.wav
-Chute do programa:
-	bandeira
-Distancia individual:
-	-18.55164450449358
+Amostra testada: voice-bandeira-12.wav
+Chute do programa: bandeira
+Distancia individual: -18.478608309521256
 Distancias para cada modelo:
-	[('antonio', -25.55526487470062), ('bandeira', -18.55164450449358), ('luca', -20.883283221947103), ('patrick', -19.81618555209916), ('viktor', -24.53923379088098)]
+antonio: -25.195428171397943
+bandeira: -18.478608309521256
+betim: -20.44305468674741
+luca: -21.00478769696638
+patrick: -19.97983940341101
+viktor: -24.69280884950335

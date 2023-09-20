@@ -13,3 +13,6 @@ voice-patrick-15.wav
 voice-viktor-12.wav
 voice-viktor-13.wav
 voice-viktor-14.wav
+voice-betim-12.wav
+voice-betim-13.wav
+voice-betim-14.wav

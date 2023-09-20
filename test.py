@@ -90,7 +90,7 @@ elif take == 0:
         }
         
         # Nome do relatório
-        relatorio_nome = f"relatorio_{path.split('.')[0]}.txt"
+        relatorio_nome = f"relatorios/relatorio_{path.split('.')[0]}.txt"
         
         # Chame a função para escrever o relatório
         write_report(relatorio_nome, report_info=relatorio_info)

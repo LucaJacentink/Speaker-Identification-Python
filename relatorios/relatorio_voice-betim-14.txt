@@ -1,0 +1,10 @@
+Amostra testada: voice-betim-14.wav
+Chute do programa: betim
+Distancia individual: -21.06222327323584
+Distancias para cada modelo:
+antonio: -25.97140427798152
+bandeira: -22.285071417504085
+betim: -21.06222327323584
+luca: -23.068977782970162
+patrick: -22.35164252500466
+viktor: -23.682482587262896

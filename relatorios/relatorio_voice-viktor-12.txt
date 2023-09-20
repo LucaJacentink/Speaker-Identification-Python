@@ -1,8 +1,10 @@
-Amostra testada:
-	voice-viktor-12.wav
-Chute do programa:
-	viktor
-Distancia individual:
-	-24.172955017643716
+Amostra testada: voice-viktor-12.wav
+Chute do programa: viktor
+Distancia individual: -24.202997090437147
 Distancias para cada modelo:
-	[('antonio', -27.863152235903854), ('bandeira', -27.31316028773786), ('luca', -28.505258959805058), ('patrick', -26.982273156249455), ('viktor', -24.172955017643716)]
+antonio: -28.22420817937366
+bandeira: -27.305083814596014
+betim: -27.696295954691504
+luca: -28.883130593830174
+patrick: -26.973023771451864
+viktor: -24.202997090437147

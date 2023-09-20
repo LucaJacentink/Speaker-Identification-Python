@@ -1,8 +1,10 @@
-Amostra testada:
-	voice-antonio-13.wav
-Chute do programa:
-	antonio
-Distancia individual:
-	-20.681679634090184
+Amostra testada: voice-antonio-13.wav
+Chute do programa: antonio
+Distancia individual: -20.567430133393422
 Distancias para cada modelo:
-	[('antonio', -20.681679634090184), ('bandeira', -25.789891432618784), ('luca', -25.941984519250227), ('patrick', -22.937620926126343), ('viktor', -23.663573333079565)]
+antonio: -20.567430133393422
+bandeira: -25.810616806709245
+betim: -24.97072341530351
+luca: -25.640958330980755
+patrick: -23.042360220289837
+viktor: -23.78083054171092

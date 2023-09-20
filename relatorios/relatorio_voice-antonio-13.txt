@@ -3,6 +3,6 @@ Amostra testada:
 Chute do programa:
 	antonio
 Distancia individual:
-	-20.49408444131863
+	-20.681679634090184
 Distancias para cada modelo:
-	[('antonio', -20.49408444131863), ('bandeira', -25.9676663354456), ('luca', -26.231727413997824), ('patrick', -22.86185763758066)]
+	[('antonio', -20.681679634090184), ('bandeira', -25.789891432618784), ('luca', -25.941984519250227), ('patrick', -22.937620926126343), ('viktor', -23.663573333079565)]

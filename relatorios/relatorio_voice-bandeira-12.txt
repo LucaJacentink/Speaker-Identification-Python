@@ -3,6 +3,6 @@ Amostra testada:
 Chute do programa:
 	bandeira
 Distancia individual:
-	-18.414519274256385
+	-18.55164450449358
 Distancias para cada modelo:
-	[('antonio', -25.061170505951125), ('bandeira', -18.414519274256385), ('luca', -20.85241636635634), ('patrick', -19.79601575690492)]
+	[('antonio', -25.55526487470062), ('bandeira', -18.55164450449358), ('luca', -20.883283221947103), ('patrick', -19.81618555209916), ('viktor', -24.53923379088098)]

@@ -1,0 +1,8 @@
+Amostra testada:
+	voice-viktor-13.wav
+Chute do programa:
+	viktor
+Distancia individual:
+	-20.418753700824755
+Distancias para cada modelo:
+	[('antonio', -24.133506022274574), ('bandeira', -21.142940086806657), ('luca', -22.349656999904198), ('patrick', -21.975645855670102), ('viktor', -20.418753700824755)]

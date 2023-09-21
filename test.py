@@ -8,73 +8,78 @@ from report import write_report
 
 
 source = "SampleData/"
-
-# path where training speakers will be saved
 modelpath = "Speakers_models/"
+#Inicializa os caminhos de destino e entrada de data
 
 gmm_files = [os.path.join(modelpath, fname) for fname in os.listdir(modelpath) if fname.endswith('.gmm')]
+#Cria uma lista com os modelos gaussianos
 
-# Load the Gaussian gender Models
 models = [cPickle.load(open(fname, 'rb')) for fname in gmm_files]
 speakers = [fname.split("/")[-1].split(".gmm")[0] for fname in gmm_files]
+
+#Cria duas listas, separando entre modelos e quem é o falante do modelo
 
 correct = 0
 total_sample = 0.0
 
-print("Do you want to Test a Single Audio: Press '1' or The complete Test Audio Sample: Press '0' ?")
-take = int(input().strip())
+take = int(input("Do you want to Test a Single Audio: Press '1' or The complete Test Audio Sample: Press '0' ?\n").strip())
+#Se take==1 testa um audio apenas, se take==0 testa o SampleData
 
 if take == 1:
-    print("Enter the File name from Test Audio Sample Collection :")
-    path = input().strip()
+    path = input("Enter the File name from Test Audio Sample Collection :\n").strip()
     print("Testing Audio : ", path)
     sr, audio = read(os.path.join(source, path))
     vector = extract_features(audio, sr)
-
+    #Adiciona o vetor das caracteristicas a variavel vector
     log_likelihood = np.zeros(len(models))
-
+    #Inicializa a lista de semelhança do tamanho da lista de modelos com zeros
     for i in range(len(models)):
-        gmm = models[i]  # checking with each model one by one
+        gmm = models[i]  
         scores = np.array(gmm.score(vector))
         log_likelihood[i] = scores.sum()
+        #adiciona a lista de semelhança a distancia do vetor a cada modelo
 
     winner = np.argmax(log_likelihood)
     detected_speaker = speakers[winner]
-    print("\tdetected as - ", detected_speaker)
-
+    print(f"\tdetected as - {detected_speaker}")
+    #Detecta o chute do programa
+    
     true_speaker = path.split('-')[1]  # Extrair o locutor real do nome do arquivo
     if detected_speaker == true_speaker:
         correct += 1
+    #verifica se o chte do programa foi correto
 
-    print("Score da amostra predita:", log_likelihood[winner])  # Adicionando a saída do score
-    time.sleep(1.0)
+
 
 elif take == 0:
     test_file = "testSamplePath.txt"
     file_paths = open(test_file, 'r')
 
-    # Read the test directory and get the list of test audio files
+    # Lê o diretorio de teste
     for path in file_paths:
         total_sample += 1.0
         path = path.strip()
         print("Testing Audio : ", path)
         sr, audio = read(os.path.join(source, path))
         vector = extract_features(audio, sr)
+        #Adiciona o vetor das caracteristicas a variavel vector
 
         log_likelihood = np.zeros(len(models))
-
+         #Inicializa a lista de semelhança do tamanho da lista de modelos com zeros
         for i in range(len(models)):
-            gmm = models[i]  # checking with each model one by one
+            gmm = models[i]  
             scores = np.array(gmm.score(vector))
             log_likelihood[i] = scores.sum()
-
+            #adiciona a lista de semelhança a distancia do vetor a cada modelo
         winner = np.argmax(log_likelihood)
         detected_speaker = speakers[winner]
         print("\tdetected as - ", detected_speaker)
+        #Detecta o chute do programa
 
-        true_speaker = path.split('-')[1]
+        true_speaker = path.split('-')[1]   # Extrair o locutor real do nome do arquivo
         if detected_speaker == true_speaker:
             correct += 1
+        #verifica se o chte do programa foi correto
 
         print("Score da amostra predita:", log_likelihood[winner])  # Adicionando a saída do score
         

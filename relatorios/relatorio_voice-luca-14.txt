@@ -1,10 +1,10 @@
 Amostra testada: voice-luca-14.wav
 Chute do programa: luca
-Distancia individual: -18.457335123919353
+Distancia individual: -18.46753709107318
 Distancias para cada modelo:
-antonio: -23.556015913638777
-bandeira: -19.96890984435468
-betim: -19.956989621210464
-luca: -18.457335123919353
-patrick: -19.564262797983684
-viktor: -24.306121553848275
+antonio: -23.47951282136352
+bandeira: -20.024064380402148
+betim: -19.732770340552072
+luca: -18.46753709107318
+patrick: -19.491581034680745
+viktor: -23.97893898596656

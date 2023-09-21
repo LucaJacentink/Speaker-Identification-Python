@@ -1,10 +1,10 @@
 Amostra testada: voice-patrick-13.wav
 Chute do programa: patrick
-Distancia individual: -20.716077741302815
+Distancia individual: -20.751281381970834
 Distancias para cada modelo:
-antonio: -25.162205040847923
-bandeira: -22.05689250768705
-betim: -22.110031058737892
-luca: -23.12982256293535
-patrick: -20.716077741302815
-viktor: -24.796736902976864
+antonio: -25.262840518702706
+bandeira: -22.144829596273723
+betim: -22.074771880455735
+luca: -22.976004647339114
+patrick: -20.751281381970834
+viktor: -24.486378408044217

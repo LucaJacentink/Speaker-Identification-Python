@@ -1,10 +1,10 @@
 Amostra testada: voice-antonio-15.wav
 Chute do programa: antonio
-Distancia individual: -15.347976337234504
+Distancia individual: -15.00858286107576
 Distancias para cada modelo:
-antonio: -15.347976337234504
-bandeira: -22.56649102871773
-betim: -21.47667652534522
-luca: -22.09454033886822
-patrick: -19.617343465900852
-viktor: -20.024824867060154
+antonio: -15.00858286107576
+bandeira: -22.588831063343317
+betim: -21.555925799998914
+luca: -22.081307762430573
+patrick: -19.608892151154024
+viktor: -19.94405680304955

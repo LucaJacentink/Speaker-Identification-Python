@@ -5,7 +5,7 @@ from featureextraction import extract_features
 import os
 import time
 from report import write_report
-
+from captura_de_voz import captura_voz
 
 source = "SampleData/"
 modelpath = "Speakers_models/"
@@ -26,9 +26,12 @@ take = int(input("Do you want to Test a Single Audio: Press '1' or The complete 
 #Se take==1 testa um audio apenas, se take==0 testa o SampleData
 
 if take == 1:
-    path = input("Enter the File name from Test Audio Sample Collection :\n").strip()
+    
+    nome = input("Nome\n")
+    captura_voz(nome, 1)
+    path=f"voice-{nome}-0.wav"
     print("Testing Audio : ", path)
-    sr, audio = read(os.path.join(source, path))
+    sr, audio = read(os.path.join(path))
     vector = extract_features(audio, sr)
     #Adiciona o vetor das caracteristicas a variavel vector
     log_likelihood = np.zeros(len(models))
@@ -47,6 +50,22 @@ if take == 1:
     true_speaker = path.split('-')[1]  # Extrair o locutor real do nome do arquivo
     if detected_speaker == true_speaker:
         correct += 1
+    distancias_para_cada_modelo = [(speakers[i], log_likelihood[i]) for i in range(len(models))]
+        
+        # Criar informações para o relatório
+    relatorio_info = {
+            "Amostra testada": path,
+            "Chute do programa": detected_speaker,
+            "Distancia individual": log_likelihood[winner],
+            "Distancias para cada modelo": distancias_para_cada_modelo  # Use a lista de tuplas
+        }
+        
+        # Nome do relatório
+    relatorio_nome = f"relatorios/relatorio_{path.split('.')[0]}.txt"
+        
+        # Chame a função para escrever o relatório
+    write_report(relatorio_nome, report_info=relatorio_info)
+        
     #verifica se o chte do programa foi correto
 
 

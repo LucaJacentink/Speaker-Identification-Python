@@ -41,7 +41,7 @@ def testa_voz(take):
             #adiciona a lista de semelhança a distancia do vetor a cada modelo
 
         winner = np.argmax(log_likelihood)
-        detected_speaker = speakers[winner]
+        detected_speaker = speakers[winner].split("-")[0]
         print(f"\tdetected as - {detected_speaker}")
         #Detecta o chute do programa
         
@@ -54,7 +54,7 @@ def testa_voz(take):
         relatorio_info = {
                 "Amostra testada": path,
                 "Chute do programa": detected_speaker,
-                "Distancia individual": log_likelihood[winner],
+                "Distancia individual": f"({log_likelihood[winner]}, {speakers[winner]})",
                 "Distancias para cada modelo": distancias_para_cada_modelo  # Use a lista de tuplas
             }
             
@@ -89,7 +89,7 @@ def testa_voz(take):
                 log_likelihood[i] = scores.sum()
                 #adiciona a lista de semelhança a distancia do vetor a cada modelo
             winner = np.argmax(log_likelihood)
-            detected_speaker = speakers[winner]
+            detected_speaker = speakers[winner].split("-")[0]
             print("\tdetected as - ", detected_speaker)
             #Detecta o chute do programa
 
@@ -107,7 +107,7 @@ def testa_voz(take):
             relatorio_info = {
                 "Amostra testada": path,
                 "Chute do programa": detected_speaker,
-                "Distancia individual": log_likelihood[winner],
+                "Distancia individual": f"({log_likelihood[winner]}, {speakers[winner]})",
                 "Distancias para cada modelo": distancias_para_cada_modelo  # Use a lista de tuplas
             }
             

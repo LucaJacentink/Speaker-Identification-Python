@@ -30,10 +30,10 @@ for path in file_paths:
         features = vector
     else:
         features = np.vstack((features, vector))      
-    if count == 12:
+    if count == 6:
         gmm = Gmm(n_components=16, max_iter=200, covariance_type='diag', n_init=3)
         gmm.fit(features)
-        picklefile = path.split("-")[0]+".gmm"
+        picklefile = path.split("/")[1]+".gmm"
         cPickle.dump(gmm, open(dest + picklefile, 'wb'))
         print('+ modeling completed for speaker:', picklefile, " with data point = ", features.shape)
         features = np.asarray(())

@@ -59,16 +59,20 @@ def testa_voz(take):
         true_speaker = path.split('-')[1]  # Extrair o locutor real do nome do arquivo
         if detected_speaker == true_speaker:
             correct += 1
+        lista_nomes=["antonio", "bandeira", "betim", "luca", "patrick", "viktor"]
+        
         distancias_para_cada_modelo = [(speakers[i], log_likelihood[i]) for i in range(len(models))]
+        lista_tuplas = [(lista_somas[i], lista_nomes[i]) for i in range (len(lista_nomes))]
             
-            # Criar informações para o relatório
+         # Criar informações para o relatório
         relatorio_info = {
                 "Amostra testada": path,
                 "Chute do programa": detected_speaker,
                 "Distancia individual": f"({log_likelihood[winner]}, {speakers[winner]})",
                 "Distancias para cada modelo": distancias_para_cada_modelo,  # Use a lista de tuplas
-                "Lista das distancia": lista_somas
+                "Distancia total": lista_tuplas
             }
+            
             
             # Nome do relatório
         relatorio_nome = f"relatorio_{path.split('.')[0]}.txt"
@@ -118,8 +122,11 @@ def testa_voz(take):
             #verifica se o chte do programa foi correto
 
             print("Score da amostra predita:", log_likelihood[winner])  # Adicionando a saída do score
-            
-            # Crie uma lista de tuplas com nome do modelo e distância correspondente
+            lista_tuplas=[]
+            lista_nomes=["antonio", "bandeira", "betim", "luca", "patrick", "viktor"]
+            for i in range(len(lista_somas)-1):
+                lista_tuplas.append((lista_somas[i], lista_nomes[i]))
+                
             distancias_para_cada_modelo = [(speakers[i], log_likelihood[i]) for i in range(len(models))]
             
             # Criar informações para o relatório
@@ -128,7 +135,7 @@ def testa_voz(take):
                 "Chute do programa": detected_speaker,
                 "Distancia individual": f"({log_likelihood[winner]}, {speakers[winner]})",
                 "Distancias para cada modelo": distancias_para_cada_modelo,  # Use a lista de tuplas
-                "Lista das distancia": lista_somas
+                "Lista das distancia": lista_tuplas
             }
             
             # Nome do relatório

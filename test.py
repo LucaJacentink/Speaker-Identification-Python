@@ -21,6 +21,9 @@ def testa_voz(take):
 
     correct = 0
     total_sample = 0.0
+    count=1
+    
+
 
     #Se take==1 testa um audio apenas, se take==0 testa o SampleData
     if take == 1:
@@ -33,11 +36,19 @@ def testa_voz(take):
         vector = extract_features(audio, sr)
         #Adiciona o vetor das caracteristicas a variavel vector
         log_likelihood = np.zeros(len(models))
+        lista_somas=np.zeros(6)
+        indice=0
         #Inicializa a lista de semelhança do tamanho da lista de modelos com zeros
         for i in range(len(models)):
             gmm = models[i]  
             scores = np.array(gmm.score(vector))
             log_likelihood[i] = scores.sum()
+            lista_somas[indice]=lista_somas[indice]+log_likelihood[i]
+            count+=1
+            if count ==3:
+                indice+=1
+                count=0
+            
             #adiciona a lista de semelhança a distancia do vetor a cada modelo
 
         winner = np.argmax(log_likelihood)
@@ -55,7 +66,8 @@ def testa_voz(take):
                 "Amostra testada": path,
                 "Chute do programa": detected_speaker,
                 "Distancia individual": f"({log_likelihood[winner]}, {speakers[winner]})",
-                "Distancias para cada modelo": distancias_para_cada_modelo  # Use a lista de tuplas
+                "Distancias para cada modelo": distancias_para_cada_modelo,  # Use a lista de tuplas
+                "Lista das distancia": lista_somas
             }
             
             # Nome do relatório
@@ -83,11 +95,18 @@ def testa_voz(take):
 
             log_likelihood = np.zeros(len(models))
             #Inicializa a lista de semelhança do tamanho da lista de modelos com zeros
+            lista_somas=np.zeros(7)
+            indice=0
             for i in range(len(models)):
                 gmm = models[i]  
                 scores = np.array(gmm.score(vector))
                 log_likelihood[i] = scores.sum()
                 #adiciona a lista de semelhança a distancia do vetor a cada modelo
+                lista_somas[indice]=lista_somas[indice]+log_likelihood[i]
+                count+=1
+                if count ==3:
+                    indice+=1
+                    count=0
             winner = np.argmax(log_likelihood)
             detected_speaker = speakers[winner].split("-")[0]
             print("\tdetected as - ", detected_speaker)
@@ -108,7 +127,8 @@ def testa_voz(take):
                 "Amostra testada": path,
                 "Chute do programa": detected_speaker,
                 "Distancia individual": f"({log_likelihood[winner]}, {speakers[winner]})",
-                "Distancias para cada modelo": distancias_para_cada_modelo  # Use a lista de tuplas
+                "Distancias para cada modelo": distancias_para_cada_modelo,  # Use a lista de tuplas
+                "Lista das distancia": lista_somas
             }
             
             # Nome do relatório

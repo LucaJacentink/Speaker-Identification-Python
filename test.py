@@ -52,17 +52,25 @@ def testa_voz(take):
             #adiciona a lista de semelhança a distancia do vetor a cada modelo
 
         winner = np.argmax(log_likelihood)
-        detected_speaker = speakers[winner].split("-")[0]
+        lista_nomes=["antonio", "bandeira", "betim", "luca", "patrick", "viktor"]
+        indice_soma=np.argmax(lista_somas)
+        distancias_para_cada_modelo = [(speakers[i], log_likelihood[i]) for i in range(len(models))]
+        lista_tuplas = [(lista_somas[i], lista_nomes[i]) for i in range (len(lista_nomes))]
+        if speakers[winner].split("-")[0]== lista_nomes[indice_soma]:
+            detected_speaker = speakers[winner].split("-")[0]
+        else:
+            detected_speaker = "Inconclusivo"
+            
+            
+            
+            
         print(f"\tdetected as - {detected_speaker}")
         #Detecta o chute do programa
         
         true_speaker = path.split('-')[1]  # Extrair o locutor real do nome do arquivo
         if detected_speaker == true_speaker:
             correct += 1
-        lista_nomes=["antonio", "bandeira", "betim", "luca", "patrick", "viktor"]
-        indice_soma=np.argmax(lista_somas)
-        distancias_para_cada_modelo = [(speakers[i], log_likelihood[i]) for i in range(len(models))]
-        lista_tuplas = [(lista_somas[i], lista_nomes[i]) for i in range (len(lista_nomes))]
+       
             
          # Criar informações para o relatório
         relatorio_info = {
@@ -113,18 +121,25 @@ def testa_voz(take):
                     indice+=1
                     count=0
             winner = np.argmax(log_likelihood)
-            detected_speaker = speakers[winner].split("-")[0]
-            print("\tdetected as - ", detected_speaker)
+            lista_nomes=["antonio", "bandeira", "betim", "luca", "patrick", "viktor"]
+            indice_soma=np.argmax(lista_somas[:-1])
+            distancias_para_cada_modelo = [(speakers[i], log_likelihood[i]) for i in range(len(models))]
+            lista_tuplas = [(lista_somas[i], lista_nomes[i]) for i in range (len(lista_nomes))]
+            if speakers[winner].split("-")[0]== lista_nomes[indice_soma]:
+                detected_speaker = speakers[winner].split("-")[0]
+            else:
+                detected_speaker = "Inconclusivo"
+            
+            
+            
+            
+            print(f"\tdetected as - {detected_speaker}")
             #Detecta o chute do programa
-
-            true_speaker = path.split('-')[1]   # Extrair o locutor real do nome do arquivo
+        
+            true_speaker = path.split('-')[1]  # Extrair o locutor real do nome do arquivo
             if detected_speaker == true_speaker:
                 correct += 1
-            #verifica se o chte do programa foi correto
-
-            print("Score da amostra predita:", log_likelihood[winner])  # Adicionando a saída do score
-            lista_tuplas=[]
-            lista_nomes=["antonio", "bandeira", "betim", "luca", "patrick", "viktor"]
+       
             for i in range(len(lista_somas)-1):
                 lista_tuplas.append((lista_somas[i], lista_nomes[i]))
                 

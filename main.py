@@ -1,6 +1,6 @@
 
-from test import testa_voz
 from vozes import voz
+from test import tester
 
 def main():
     pergunta=int(input("Voce deseja testar ou treinar o algoritimo? 1 para testar e 0 para treinar\n").strip())
@@ -23,7 +23,8 @@ def main():
             
     elif pergunta==1:
         take = int(input("Teste, 1 para audio gravado, 0 para lista de audios?\n").strip())
-        testa_voz(take)
+        teste=tester()
+        teste.testa_voz(take)
     else:
         print("Valor invalido")
         

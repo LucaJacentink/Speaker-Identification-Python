@@ -16,6 +16,7 @@ class voz:
         self.vector=" "
         self.limite=limite
         self.lista_nomes=[]
+        
     def treinar(self):
         self.features=np.asarray(())
         for path in self.file_paths:

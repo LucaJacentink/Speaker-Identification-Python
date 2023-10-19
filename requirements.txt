@@ -1,0 +1,6 @@
+scipy.io.wavfile
+sklearn
+sounddevice
+wavio
+time
+python_speech_features

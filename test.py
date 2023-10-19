@@ -3,7 +3,6 @@ import numpy as np
 from scipy.io.wavfile import read
 from featureextraction import extract_features
 import os
-import time
 from report import write_report
 from captura_de_voz import captura_voz
 

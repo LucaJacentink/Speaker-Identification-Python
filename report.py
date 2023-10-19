@@ -1,7 +1,6 @@
 from typing import Dict
 
 
-
 def write_report(report_name, report_info):
     try:
         with open(report_name, 'w') as report_file:

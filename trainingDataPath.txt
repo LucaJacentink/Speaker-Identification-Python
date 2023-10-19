@@ -16,7 +16,7 @@ voice/bandeira-001/voice-bandeira-2.wav
 voice/bandeira-001/voice-bandeira-3.wav
 voice/bandeira-001/voice-bandeira-4.wav
 voice/bandeira-001/voice-bandeira-5.wav
-voice/bandeira-001/voice-bandeira-6.wav
+voice/bandeira-002/voice-bandeira-6.wav
 voice/bandeira-002/voice-bandeira-7.wav
 voice/bandeira-002/voice-bandeira-8.wav
 voice/bandeira-002/voice-bandeira-9.wav

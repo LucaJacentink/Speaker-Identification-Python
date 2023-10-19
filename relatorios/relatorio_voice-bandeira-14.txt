@@ -1,6 +1,7 @@
 Amostra testada: voice-bandeira-14.wav
 Chute do programa: bandeira
 Distancia individual: (-16.771865528525314, bandeira-003)
+Distancia somas: (-51.73986347072638, bandeira)
 Distancias para cada modelo:
 antonio-001: -23.701062888355768
 antonio-002: -24.38746521349327
@@ -20,4 +21,4 @@ patrick-003: -19.24091663422027
 viktor-001: -21.726072463538788
 viktor-002: -20.961587929191243
 viktor-003: -20.57265669676309
-Lista das distancia: [(-48.088528101849036, 'antonio'), (-58.16061955856227, 'bandeira'), (-54.8911104570893, 'betim'), (-57.40532782961496, 'luca'), (-57.52719717875479, 'patrick'), (-61.92857702695029, 'viktor')]
+Distancia total: [(-71.28114971821023, 'antonio'), (-51.73986347072638, 'bandeira'), (-55.89695629099781, 'betim'), (-57.6366792392652, 'luca'), (-58.75905104089098, 'patrick'), (-63.26031708949312, 'viktor')]

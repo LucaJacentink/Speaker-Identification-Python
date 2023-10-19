@@ -1,6 +1,7 @@
 Amostra testada: voice-viktor-12.wav
 Chute do programa: viktor
 Distancia individual: (-24.109199726679968, viktor-003)
+Distancia somas: (-74.1347020998522, viktor)
 Distancias para cada modelo:
 antonio-001: -28.55001963570702
 antonio-002: -29.613589950112903
@@ -20,4 +21,4 @@ patrick-003: -26.97398777927214
 viktor-001: -25.553835838515518
 viktor-002: -24.47166653465672
 viktor-003: -24.109199726679968
-Lista das distancia: [(-58.16360958581993, 'antonio'), (-84.45770712585306, 'bandeira'), (-84.54182475271537, 'betim'), (-87.28680104457098, 'luca'), (-84.18620902129106, 'patrick'), (-76.99949015244438, 'viktor')]
+Distancia total: [(-86.04200828809073, 'antonio'), (-83.81510951669097, 'bandeira'), (-84.97721222202985, 'betim'), (-88.16473249779446, 'luca'), (-82.61107678491655, 'patrick'), (-74.1347020998522, 'viktor')]

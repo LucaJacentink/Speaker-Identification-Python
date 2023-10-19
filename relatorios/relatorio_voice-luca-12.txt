@@ -1,6 +1,7 @@
 Amostra testada: voice-luca-12.wav
 Chute do programa: luca
 Distancia individual: (-16.76167823945049, luca-003)
+Distancia somas: (-54.10724612975625, luca)
 Distancias para cada modelo:
 antonio-001: -22.78183536732625
 antonio-002: -24.12115760765078
@@ -20,4 +21,4 @@ patrick-003: -20.23692529499815
 viktor-001: -23.95954988950467
 viktor-002: -21.453618539603244
 viktor-003: -21.627281003573163
-Lista das distancia: [(-46.902992974977025, 'antonio'), (-64.4194922802163, 'bandeira'), (-61.08138818449581, 'betim'), (-56.25003860493381, 'luca'), (-58.67735791619309, 'patrick'), (-65.65009372410607, 'viktor')]
+Distancia total: [(-69.27137441141964, 'antonio'), (-62.21226539858108, 'bandeira'), (-59.824704344316466, 'betim'), (-54.10724612975625, 'luca'), (-62.15260497174074, 'patrick'), (-67.04044943268107, 'viktor')]

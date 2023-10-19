@@ -21,7 +21,7 @@ def testa_voz(take):
 
     correct = 0
     total_sample = 0.0
-    count=1
+    count=0
     
 
 
@@ -60,7 +60,7 @@ def testa_voz(take):
         if detected_speaker == true_speaker:
             correct += 1
         lista_nomes=["antonio", "bandeira", "betim", "luca", "patrick", "viktor"]
-        
+        indice_soma=np.argmax(lista_somas)
         distancias_para_cada_modelo = [(speakers[i], log_likelihood[i]) for i in range(len(models))]
         lista_tuplas = [(lista_somas[i], lista_nomes[i]) for i in range (len(lista_nomes))]
             
@@ -69,6 +69,7 @@ def testa_voz(take):
                 "Amostra testada": path,
                 "Chute do programa": detected_speaker,
                 "Distancia individual": f"({log_likelihood[winner]}, {speakers[winner]})",
+                "Distancia somas": f"({lista_somas[indice_soma]}, {lista_nomes[indice_soma]})",
                 "Distancias para cada modelo": distancias_para_cada_modelo,  # Use a lista de tuplas
                 "Distancia total": lista_tuplas
             }
@@ -128,14 +129,17 @@ def testa_voz(take):
                 lista_tuplas.append((lista_somas[i], lista_nomes[i]))
                 
             distancias_para_cada_modelo = [(speakers[i], log_likelihood[i]) for i in range(len(models))]
+            indice_soma=np.argmax(lista_somas[:-1])
+            
             
             # Criar informações para o relatório
             relatorio_info = {
                 "Amostra testada": path,
                 "Chute do programa": detected_speaker,
                 "Distancia individual": f"({log_likelihood[winner]}, {speakers[winner]})",
+                "Distancia somas": f"({lista_somas[indice_soma]}, {lista_nomes[indice_soma]})",
                 "Distancias para cada modelo": distancias_para_cada_modelo,  # Use a lista de tuplas
-                "Lista das distancia": lista_tuplas
+                "Distancia total": lista_tuplas
             }
             
             # Nome do relatório

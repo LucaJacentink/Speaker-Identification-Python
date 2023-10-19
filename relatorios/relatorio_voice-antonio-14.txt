@@ -1,6 +1,7 @@
 Amostra testada: voice-antonio-14.wav
 Chute do programa: antonio
 Distancia individual: (-19.20434275218062, antonio-003)
+Distancia somas: (-59.024086639861764, antonio)
 Distancias para cada modelo:
 antonio-001: -19.73876431016082
 antonio-002: -20.080979577520324
@@ -20,4 +21,4 @@ patrick-003: -21.927216322577678
 viktor-001: -23.505671736614207
 viktor-002: -22.58271824943364
 viktor-003: -22.403126903000416
-Lista das distancia: [(-39.81974388768114, 'antonio'), (-69.37695022531123, 'bandeira'), (-73.75936693352338, 'betim'), (-74.02843051165522, 'luca'), (-69.10699701309238, 'patrick'), (-68.01560630862552, 'viktor')]
+Distancia total: [(-59.024086639861764, 'antonio'), (-74.35063007409795, 'bandeira'), (-72.88473862860229, 'betim'), (-74.94257739026074, 'luca'), (-66.81667216101827, 'patrick'), (-68.49151688904826, 'viktor')]

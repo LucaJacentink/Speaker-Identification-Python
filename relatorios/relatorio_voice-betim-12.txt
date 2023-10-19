@@ -1,6 +1,7 @@
 Amostra testada: voice-betim-12.wav
 Chute do programa: betim
 Distancia individual: (-21.17080285371569, betim-002)
+Distancia somas: (-66.69859150932942, betim)
 Distancias para cada modelo:
 antonio-001: -27.598227643146863
 antonio-002: -28.087737588734786
@@ -20,4 +21,4 @@ patrick-003: -23.13417452736947
 viktor-001: -26.427479347858693
 viktor-002: -24.314877072194506
 viktor-003: -24.45573979921146
-Lista das distancia: [(-55.68596523188165, 'antonio'), (-75.53781058880597, 'bandeira'), (-68.6424683356096, 'betim'), (-73.53384369193088, 'luca'), (-72.51557568946711, 'patrick'), (-73.87653094742267, 'viktor')]
+Distancia total: [(-83.29499737422667, 'antonio'), (-71.04925953953635, 'bandeira'), (-66.69859150932942, 'betim'), (-76.87699352140116, 'luca'), (-71.12999612057109, 'patrick'), (-75.19809621926466, 'viktor')]

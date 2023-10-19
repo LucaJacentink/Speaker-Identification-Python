@@ -1,6 +1,7 @@
 Amostra testada: voice-patrick-15.wav
 Chute do programa: patrick
 Distancia individual: (-21.366416541808704, patrick-003)
+Distancia somas: (-66.27228721172304, patrick)
 Distancias para cada modelo:
 antonio-001: -26.709173127863306
 antonio-002: -27.65163246946601
@@ -20,4 +21,4 @@ patrick-003: -21.366416541808704
 viktor-001: -27.434811970293815
 viktor-002: -25.241862294851014
 viktor-003: -25.614857219776713
-Lista das distancia: [(-54.36080559732932, 'antonio'), (-73.3719179735045, 'bandeira'), (-72.14992091344845, 'betim'), (-72.19939995128829, 'luca'), (-68.30131027933888, 'patrick'), (-74.04309080695353, 'viktor')]
+Distancia total: [(-80.23076885625268, 'antonio'), (-70.60341863833789, 'bandeira'), (-72.1197772689648, 'betim'), (-72.52351928143975, 'luca'), (-66.27228721172304, 'patrick'), (-78.29153148492153, 'viktor')]

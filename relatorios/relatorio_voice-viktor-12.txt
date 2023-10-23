@@ -1,5 +1,5 @@
 Amostra testada: voice-viktor-12.wav
-Chute do programa: Inconclusivo
+Chute do programa: viktor
 Distancia individual: (-24.36163553759529, viktor-003)
 Distancia somas: (-74.53911506170776, viktor)
 Distancias para cada modelo:

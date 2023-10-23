@@ -43,10 +43,7 @@ class tester():
             
         elif take==0:
             self.testa_sample()
-            
-                
-                
-  
+        print(f"Acuracia: {100*self.correct/int(self.total_sample)}%")    
                 
                 
                 
@@ -55,32 +52,29 @@ class tester():
         self.nome = input("Nome\n")
         captura_voz(self.nome, 1)
         self.path=f"voice-{self.nome}-0.wav"
-        print("Testing Audio : ", self.path)
-        sr, audio = read(os.path.join(self.path))
-        self.vector = extract_features(audio, sr)
-        self.log_likelihood = np.zeros(len(self.models))
-        self.lista_somas=np.zeros(6)
-        self.compara_sample()
-        self.prepara_relatorio()
-
+        self.teste_geral()
+      
 
 
     def testa_sample(self):
         for self.path in self.file_paths:
                 self.total_sample += 1.0
                 self.path = self.path.strip()
-                print("Testing Audio : ", self.path)
-                sr, audio = read(os.path.join(self.source, self.path))
-                self.vector = extract_features(audio, sr)
-                #Adiciona o vetor das caracteristicas a variavel vector
-                self.log_likelihood = np.zeros(len(self.models))
-                #Inicializa a lista de semelhança do tamanho da lista de modelos com zeros
-                self.lista_somas=np.zeros(6)
-                self.compara_sample()
-                self.prepara_relatorio()
+                self.teste_geral()
+             
         
         
         
+    def teste_geral(self):
+            print("Testing Audio : ", self.path)
+            sr, audio = read(os.path.join(self.source, self.path))
+            self.vector = extract_features(audio, sr)
+            #Adiciona o vetor das caracteristicas a variavel vector
+            self.log_likelihood = np.zeros(len(self.models))
+            #Inicializa a lista de semelhança do tamanho da lista de modelos com zeros
+            self.lista_somas=np.zeros(6)
+            self.compara_sample()
+            self.prepara_relatorio()
         
     def compara_sample(self):
       
@@ -102,15 +96,15 @@ class tester():
 
             winner = np.argmax(self.log_likelihood)
             lista_nomes=["antonio", "bandeira", "betim", "luca", "patrick", "viktor"]
-            indice_soma=np.argmax(self.lista_somas[:-1])
+            indice_soma=np.argmax(self.lista_somas)
             distancias_para_cada_modelo = [(self.speakers[i], self.log_likelihood[i]) for i in range(len(self.models))]
             lista_tuplas = [(self.lista_somas[i], lista_nomes[i]) for i in range (len(lista_nomes))]
+            
             if self.speakers[winner].split("-")[0]== lista_nomes[indice_soma]:
                 detected_speaker = self.speakers[winner].split("-")[0]
             else:
                 detected_speaker = "Inconclusivo"
-                
-                
+       
             print(f"\tdetected as - {detected_speaker}")
             #Detecta o chute do programa
             
@@ -138,6 +132,7 @@ class tester():
                 
                 # Chame a função para escrever o relatório
             write_report(relatorio_nome, report_info=relatorio_info)
+       
                 
             #verifica se o chte do programa foi correto
 

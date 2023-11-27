@@ -1,97 +1,139 @@
 import pickle as cPickle
 import numpy as np
 from scipy.io.wavfile import read
-from sklearn.mixture import GaussianMixture as Gmm
 from featureextraction import extract_features
 import os
-import warnings
-import time
 from report import write_report
+from captura_de_voz import captura_voz
 
-
-source = "SampleData/"
-
-# path where training speakers will be saved
-modelpath = "Speakers_models/"
-
-gmm_files = [os.path.join(modelpath, fname) for fname in os.listdir(modelpath) if fname.endswith('.gmm')]
-
-# Load the Gaussian gender Models
-models = [cPickle.load(open(fname, 'rb')) for fname in gmm_files]
-speakers = [fname.split("/")[-1].split(".gmm")[0] for fname in gmm_files]
-
-correct = 0
-total_sample = 0.0
-
-print("Do you want to Test a Single Audio: Press '1' or The complete Test Audio Sample: Press '0' ?")
-take = int(input().strip())
-
-if take == 1:
-    print("Enter the File name from Test Audio Sample Collection :")
-    path = input().strip()
-    print("Testing Audio : ", path)
-    sr, audio = read(os.path.join(source, path))
-    vector = extract_features(audio, sr)
-
-    log_likelihood = np.zeros(len(models))
-
-    for i in range(len(models)):
-        gmm = models[i]  # checking with each model one by one
-        scores = np.array(gmm.score(vector))
-        log_likelihood[i] = scores.sum()
-
-    winner = np.argmax(log_likelihood)
-    detected_speaker = speakers[winner]
-    print("\tdetected as - ", detected_speaker)
-
-    true_speaker = path.split('-')[1]  # Extrair o locutor real do nome do arquivo
-    if detected_speaker == true_speaker:
-        correct += 1
-
-    print("Score da amostra predita:", log_likelihood[winner])  # Adicionando a saída do score
-    time.sleep(1.0)
-
-elif take == 0:
-    test_file = "testSamplePath.txt"
-    file_paths = open(test_file, 'r')
-
-    # Read the test directory and get the list of test audio files
-    for path in file_paths:
-        total_sample += 1.0
-        path = path.strip()
-        print("Testing Audio : ", path)
-        sr, audio = read(os.path.join(source, path))
-        vector = extract_features(audio, sr)
-
-        log_likelihood = np.zeros(len(models))
-
-        for i in range(len(models)):
-            gmm = models[i]  # checking with each model one by one
-            scores = np.array(gmm.score(vector))
-            log_likelihood[i] = scores.sum()
-
-        winner = np.argmax(log_likelihood)
-        detected_speaker = speakers[winner]
-        print("\tdetected as - ", detected_speaker)
-
-        true_speaker = path.split('-')[1]
-        if detected_speaker == true_speaker:
-            correct += 1
-
-        print("Score da amostra predita:", log_likelihood[winner])  # Adicionando a saída do score
-        time.sleep(1.0)
+class tester():
+    def __init__(self) -> None:
+        self.source = "SampleData/"
+        self.modelpath = "speakers_models/"
+        self.test_file = "testSamplePath.txt"
         
+        self.file_paths = open(self.test_file, 'r')
+        
+        
+        self.gmm_files = [os.path.join(self.modelpath, fname) for fname in os.listdir(self.modelpath) if fname.endswith('.gmm')]
+        self.models = [cPickle.load(open(fname, 'rb')) for fname in self.gmm_files]
+        self.speakers = [fname.split("/")[-1].split(".gmm")[0] for fname in self.gmm_files]
+        
+        
+        self.correct=0
+        self.total_sample=0
+        self.count=0
+        self.indice=0
+        
+        self.lista_somas=[]
+        self.log_likelihood=[]
+        self.vector=[]
+                
+        self.path=""
+        self.nome=""
+        
+        
+        
+        
+
+    def testa_voz(self, take):
+        if take==1:
+            self.testa_unico()
+           
+            
+        elif take==0:
+            self.testa_sample()
+        print(f"Acuracia: {100*self.correct/int(self.total_sample)}%")    
+                
+                
+                
+    def testa_unico(self):
+        self.total_sample+=1
+        self.nome = input("Nome\n")
+        captura_voz(self.nome, 1)
+        self.path=f"voice-{self.nome}-0.wav"
+        self.teste_geral()
+      
+
+
+    def testa_sample(self):
+        for self.path in self.file_paths:
+                self.total_sample += 1.0
+                self.path = self.path.strip()
+                self.teste_geral()
+             
+        
+        
+        
+    def teste_geral(self):
+            print("Testing Audio : ", self.path)
+            sr, audio = read(os.path.join(self.source, self.path))
+            self.vector = extract_features(audio, sr)
+            #Adiciona o vetor das caracteristicas a variavel vector
+            self.log_likelihood = np.zeros(len(self.models))
+            #Inicializa a lista de semelhança do tamanho da lista de modelos com zeros
+            self.lista_somas=np.zeros(6)
+            self.compara_sample()
+            self.prepara_relatorio()
+        
+    def compara_sample(self):
+      
+        #Inicializa a lista de semelhança do tamanho da lista de modelos com zeros
+        for i in range(len(self.models)):
+                gmm = self.models[i]  
+                scores = np.array(gmm.score(self.vector))
+                self.log_likelihood[i] = scores.sum()
+                self.lista_somas[self.indice]=self.lista_somas[self.indice]+self.log_likelihood[i]
+                self.count+=1
+                if self.count ==3:
+                    self.indice+=1
+                    self.count=0
+        self.indice=0
+                    
+                    
+                    
+    def prepara_relatorio(self):
+
+            winner = np.argmax(self.log_likelihood)
+            lista_nomes=["antonio", "bandeira", "betim", "luca", "patrick", "viktor"]
+            indice_soma=np.argmax(self.lista_somas)
+            distancias_para_cada_modelo = [(self.speakers[i], self.log_likelihood[i]) for i in range(len(self.models))]
+            lista_tuplas = [(self.lista_somas[i], lista_nomes[i]) for i in range (len(lista_nomes))]
+            
+            if self.speakers[winner].split("-")[0]== lista_nomes[indice_soma]:
+                detected_speaker = self.speakers[winner].split("-")[0]
+            else:
+                detected_speaker = "Inconclusivo"
        
-        relatorio_info = {
-            "Amostra testada": path,
-            "Chute do programa": detected_speaker,
-            "Distancia individual": log_likelihood[winner],
-            "Distancias para cada modelo": log_likelihood
-        }
+            print(f"\tdetected as - {detected_speaker}")
+            #Detecta o chute do programa
+            
+            true_speaker = self.path.split('-')[1]  # Extrair o locutor real do nome do arquivo
+            if detected_speaker == true_speaker:
+                self.correct += 1
+                
+            distancias_para_cada_modelo = [(self.speakers[i], self.log_likelihood[i]) for i in range(len(self.models))]
+            indice_soma=np.argmax(self.lista_somas)
+            
+                
+            # Criar informações para o relatório
+            relatorio_info = {
+                    "Amostra testada": self.path,
+                    "Chute do programa": detected_speaker,
+                    "Distancia individual": f"({self.log_likelihood[winner]}, {self.speakers[winner]})",
+                    "Distancia somas": f"({self.lista_somas[indice_soma]}, {lista_nomes[indice_soma]})",
+                    "Distancias para cada modelo": distancias_para_cada_modelo,  # Use a lista de tuplas
+                    "Distancia total": lista_tuplas
+                }
+                
+                
+                # Nome do relatório
+            relatorio_nome = f"relatorios/relatorio_{self.path.split('.')[0]}.txt"
+                
+                # Chame a função para escrever o relatório
+            write_report(relatorio_nome, report_info=relatorio_info)
+       
+                
+            #verifica se o chte do programa foi correto
 
-
-        relatorio_nome = f"relatorio_{path.split('.')[0]}.txt"
-        write_report(relatorio_nome, report_info=relatorio_info)
-accuracy = (correct / total_sample) * 100 if total_sample > 0 else 0
-
-print("The Accuracy Percentage for the current testing Performance with MFCC + GMM is : ", accuracy, "%")
+        

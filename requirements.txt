@@ -1,0 +1,8 @@
+scipy
+scikit-learn
+sounddevice
+wavio
+numpy
+speaker_verification_toolkit
+librosa
+python_speech_features

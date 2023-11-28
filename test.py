@@ -5,7 +5,8 @@ from featureextraction import extract_features
 import os
 from report import write_report
 from captura_de_voz import captura_voz
-
+import re
+import shutil
 class tester():
     def __init__(self) -> None:
         self.source = "SampleData/"
@@ -28,6 +29,7 @@ class tester():
         self.lista_somas=[]
         self.log_likelihood=[]
         self.vector=[]
+        self.lista_nomes=[]
                 
         self.path=""
         self.nome=""
@@ -38,9 +40,7 @@ class tester():
 
     def testa_voz(self, take):
         if take==1:
-            self.testa_unico()
-           
-            
+            self.testa_unico() 
         elif take==0:
             self.testa_sample()
         print(f"Acuracia: {100*self.correct/int(self.total_sample)}%")    
@@ -53,6 +53,7 @@ class tester():
         captura_voz(self.nome, 1)
         self.path=f"voice-{self.nome}-0.wav"
         self.teste_geral()
+       
       
 
 
@@ -88,19 +89,17 @@ class tester():
                 if self.count ==3:
                     self.indice+=1
                     self.count=0
-        self.indice=0
-                    
-                    
-                    
+        self.indice=0                  
+                                     
     def prepara_relatorio(self):
 
             winner = np.argmax(self.log_likelihood)
-            lista_nomes=["antonio", "bandeira", "betim", "luca", "patrick", "viktor"]
+            self.lista_nomes=["antonio", "bandeira", "betim", "luca", "patrick", "viktor"]
             indice_soma=np.argmax(self.lista_somas)
             distancias_para_cada_modelo = [(self.speakers[i], self.log_likelihood[i]) for i in range(len(self.models))]
-            lista_tuplas = [(self.lista_somas[i], lista_nomes[i]) for i in range (len(lista_nomes))]
+            lista_tuplas = [(self.lista_somas[i], self.lista_nomes[i]) for i in range (len(self.lista_nomes))]
             
-            if self.speakers[winner].split("-")[0]== lista_nomes[indice_soma]:
+            if self.speakers[winner].split("-")[0]== self.lista_nomes[indice_soma]:
                 detected_speaker = self.speakers[winner].split("-")[0]
             else:
                 detected_speaker = "Inconclusivo"
@@ -121,7 +120,7 @@ class tester():
                     "Amostra testada": self.path,
                     "Chute do programa": detected_speaker,
                     "Distancia individual": f"({self.log_likelihood[winner]}, {self.speakers[winner]})",
-                    "Distancia somas": f"({self.lista_somas[indice_soma]}, {lista_nomes[indice_soma]})",
+                    "Distancia somas": f"({self.lista_somas[indice_soma]}, {self.lista_nomes[indice_soma]})",
                     "Distancias para cada modelo": distancias_para_cada_modelo,  # Use a lista de tuplas
                     "Distancia total": lista_tuplas
                 }
@@ -132,8 +131,57 @@ class tester():
                 
                 # Chame a função para escrever o relatório
             write_report(relatorio_nome, report_info=relatorio_info)
-       
+            
+            if self.total_sample==1:
+                if self.nome in self.lista_nomes:
+                    self.adicionar_ao_sample()
+                else:
+                    os.remove(os.path.join(self.source, self.path))
+               
+                    
                 
-            #verifica se o chte do programa foi correto
+                
+    def adicionar_ao_sample(self):
+        caminho=os.path.join(self.source, self.path)
+        caminho_destino_completo=f"voice/voice-{self.nome}-0.wav"
+        shutil.move(caminho, caminho_destino_completo)
+        
+        x=os.listdir(f"voice/{self.nome}-003")
+        x=len(x)
+        caminho=self.update_string(caminho_destino_completo, x)
+        os.rename(caminho_destino_completo, caminho)
+        caminho_final=f"voice/{self.nome}-003/voice-{self.nome}-{x}.wav"
+        shutil.move(caminho, caminho_final)
+        
+        self.reescreve_data_path()
+        
+    def reescreve_data_path(self):
+        arquivos = []
+
+        for i in self.lista_nomes:
+            pasta = f"voice/{i}-003"
+            arquivos_na_pasta = [os.path.join(pasta, f) for f in os.listdir(pasta) if os.path.isfile(os.path.join(pasta, f))]
+            arquivos.extend(arquivos_na_pasta)
+
+        # Função para extrair o número do nome do arquivo
+        def extrair_numero(nome_arquivo):
+            match = re.search(r'-(\d+)\.wav$', nome_arquivo)
+            if match:
+                return int(match.group(1))
+            return 0
+
+        # Ordenar os arquivos numericamente
+        arquivos_ordenados = sorted(arquivos, key=extrair_numero)
+
+        # Agora arquivos_ordenados contém todos os caminhos dos arquivos, ordenados numericamente
+        with open("trainingDataPath2.txt", 'w') as arquivo:
+            for linha in arquivos_ordenados:
+                arquivo.write(linha + '\n')
+
+                            
+       
+    def update_string(self, s, x):
+        result = re.sub(r'(\d+)\.wav', lambda m: str(int(m.group(1)) + x) + '.wav', s)
+        return result
 
         

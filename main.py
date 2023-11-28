@@ -7,9 +7,9 @@ def main():
     if pergunta==0:
         tipo_treino=int(input("Você deseja o treino padrão? 1 para sim e 0 para não\n").strip())
         if tipo_treino==1:
-            treino=voz("Speakers_models/", "trainingDataPath.txt", 6)
+            treino=voz("Speakers_models/", "trainingDataPath.txt")
             treino.treinar()
-            treino=voz("Speakers_models/", "trainingDataPath2.txt", 12)
+            treino=voz("Speakers_models/", "trainingDataPath2.txt")
             treino.treinar()
         elif tipo_treino==0:
             destino=input("Diga o arquivo de destino")
